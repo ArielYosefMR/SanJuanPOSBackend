@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class VentaServiceImpl implements VentaServiceInterface {
-
+/*
     private final VentaRepository ventaRepository;
     private final ProductoRepository productoRepository;
     private final InventarioLoteServiceInterface inventarioService;
@@ -108,4 +108,5 @@ public class VentaServiceImpl implements VentaServiceInterface {
                 .detalles(detalles)
                 .build();
     }
+    */
 }

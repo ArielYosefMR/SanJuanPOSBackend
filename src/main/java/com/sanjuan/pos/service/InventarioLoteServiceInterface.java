@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface InventarioLoteServiceInterface {
-
+/*
     InventarioLote agregarLote(Long productoId, String lote, Integer cantidad, LocalDate fechaCaducidad);
 
     List<InventarioLote> obtenerLotesDisponibles(Long productoId);
@@ -16,4 +16,5 @@ public interface InventarioLoteServiceInterface {
     InventarioLote descontarStockPorLote(Long loteId, Integer cantidad);
 
     Integer obtenerStockTotal(Long productoId);
+    */
 }

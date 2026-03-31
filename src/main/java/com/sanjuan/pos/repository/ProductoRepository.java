@@ -8,6 +8,15 @@ import java.util.Optional;
 
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
+	Optional<Producto> findByCodigoBarrasAndHabilitadoTrue(String codigo);
+	
+	List<Producto> findByDescripcionContainingIgnoreCaseAndHabilitadoTrue(String descripcion);
+
+	List<Producto> findByEquivalenciaContainingIgnoreCaseAndHabilitadoTrue(String equivalencia);
+	
+	Optional<Producto> findByIdAndHabilitadoTrue(Long id);
+	
+	/*
 	Optional<Producto> findByCodigoBarrasExtendidoAndActivoTrue(String codigoBarrasExtendido);
 
 	Optional<Producto> findByCodigoBarrasAndActivoTrue(String codigoBarras);
@@ -17,5 +26,5 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     List<Producto> findByActivoTrue();
 
     List<Producto> findByActivoFalse();
-    
+    */
 }

@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CompraServiceImpl implements CompraServiceInterface {
-
+/*
     private final CompraRepository compraRepository;
     private final ProveedorRepository proveedorRepository;
     private final InventarioLoteRepository inventarioRepository;
@@ -95,4 +95,5 @@ public class CompraServiceImpl implements CompraServiceInterface {
     public List<Compra> listarCompras() {
         return compraRepository.findAll();
     }
+    */
 }

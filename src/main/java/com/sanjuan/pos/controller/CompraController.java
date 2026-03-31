@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/compras")
 @RequiredArgsConstructor
 public class CompraController {
-
+/*
     private final CompraServiceInterface compraService;
 
     @PostMapping
@@ -23,4 +23,5 @@ public class CompraController {
     public ResponseEntity<?> listarCompras() {
         return ResponseEntity.ok(compraService.listarCompras());
     }
+    */
 }
