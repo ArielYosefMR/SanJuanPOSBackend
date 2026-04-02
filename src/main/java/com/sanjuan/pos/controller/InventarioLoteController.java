@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/lotes")
+@RequestMapping("/lotes")
 @RequiredArgsConstructor
 public class InventarioLoteController {
-
+/*
     private final InventarioLoteServiceInterface service;
 
     @PostMapping
@@ -38,5 +39,5 @@ public class InventarioLoteController {
             @RequestParam Integer cantidad) {
 
         return service.descontarStockPorLote(loteId, cantidad);
-    }
+    }*/
 }

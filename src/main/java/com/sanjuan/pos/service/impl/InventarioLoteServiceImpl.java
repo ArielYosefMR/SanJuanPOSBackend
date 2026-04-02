@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class InventarioLoteServiceImpl implements InventarioLoteServiceInterface {
-
+/*
     private final InventarioLoteRepository repository;
     private final ProductoRepository productoRepository;
 
@@ -73,4 +73,5 @@ public class InventarioLoteServiceImpl implements InventarioLoteServiceInterface
         return repository.findById(loteId)
                 .orElseThrow(() -> new RuntimeException("Lote no encontrado"));
     }
+    */
 }

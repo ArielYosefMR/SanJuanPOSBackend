@@ -5,5 +5,5 @@ import com.sanjuan.pos.dto.VentaResponseDTO;
 
 public interface VentaServiceInterface {
 
-    VentaResponseDTO crearVenta(VentaRequestDTO request);
+    //VentaResponseDTO crearVenta(VentaRequestDTO request);
 }

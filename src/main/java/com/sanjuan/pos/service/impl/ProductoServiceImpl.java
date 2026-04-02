@@ -1,6 +1,10 @@
 package com.sanjuan.pos.service.impl;
 
+import com.sanjuan.pos.controller.ProductoController;
+import com.sanjuan.pos.dto.ActualizarProductoDTO;
+import com.sanjuan.pos.entity.Color;
 import com.sanjuan.pos.entity.Producto;
+import com.sanjuan.pos.repository.ColorRepository;
 import com.sanjuan.pos.repository.ProductoRepository;
 import com.sanjuan.pos.service.InventarioLoteServiceInterface;
 import com.sanjuan.pos.service.ProductoServiceInterface;
@@ -11,14 +15,104 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductoServiceImpl implements ProductoServiceInterface {
 
-    private final ProductoRepository repository;
+    private final ProductoRepository productoRepository;
+    private final ColorRepository colorRepository;
+    
+    @Override
+    public Producto buscarPorCodigo(String codigo) {
+        return productoRepository.findByCodigoBarrasAndHabilitadoTrue(codigo)
+                .orElseThrow(() -> new RuntimeException("El producto no existe o está inactivo"));
+    }
 
+    
+    @Override
+    public List<Producto> buscarPorDescripcion(String descripcion) {
+        List<Producto> productos = productoRepository
+                .findByDescripcionContainingIgnoreCaseAndHabilitadoTrue(descripcion);
+        if (productos.isEmpty()) {
+            throw new RuntimeException("No se encontraron productos activos con esa descripción");
+        }
+        return productos;
+    }
+    
+    @Override
+    public List<Producto> buscarPorEquivalencia(String equivalencia) {
+        List<Producto> productos = productoRepository
+                .findByEquivalenciaContainingIgnoreCaseAndHabilitadoTrue(equivalencia);
+        if (productos.isEmpty()) {
+            throw new RuntimeException("No se encontraron productos activos con esa equivalencia");
+        }
+        return productos;
+    }
+    
+    @Override
+    public String crearProducto(Producto producto) {
+        producto.setHabilitado(true);
+        producto.setFechaActualizacion(LocalDate.now());
+
+        productoRepository.save(producto);
+
+        return "Producto guardado exitosamente";
+    }
+    
+    @Override
+    public String actualizarProducto(String codigo, ActualizarProductoDTO dto) {
+        Producto producto = productoRepository.findByCodigoBarrasAndHabilitadoTrue(codigo)
+                .orElseThrow(() -> new RuntimeException("Producto no existe"));
+        //Revisar que puede cambiar el usuario vs que se actualiza o calcula por separado
+        if (dto.getDescripcion() != null) producto.setDescripcion(dto.getDescripcion());
+        if (dto.getColorId() != null) {
+            Color color = colorRepository.findById(dto.getColorId())
+                    .orElseThrow(() -> new RuntimeException("Color no existe"));
+            producto.setColor(color);
+        }
+        if (dto.getPrecioPublico() != null) producto.setPrecioPublico(dto.getPrecioPublico());
+        if (dto.getPrecioDescuento() != null) producto.setPrecioDescuento(dto.getPrecioDescuento());
+        if (dto.getPrecioFarmacia() != null) producto.setPrecioFarmacia(dto.getPrecioFarmacia());
+        if (dto.getUltimoCosto() != null) producto.setUltimoCosto(dto.getUltimoCosto());
+        if (dto.getIva() != null) producto.setIva(dto.getIva());
+        if (dto.getIeps() != null) producto.setIeps(dto.getIeps());
+        if (dto.getAntibiotico() != null) producto.setAntibiotico(dto.getAntibiotico());
+        if (dto.getActualizable() != null) producto.setActualizable(dto.getActualizable());
+        if (dto.getEquivalencia() != null) producto.setEquivalencia(dto.getEquivalencia());
+        if (dto.getSsa() != null) producto.setSsa(dto.getSsa());
+        if (dto.getLaboratorio() != null) producto.setLaboratorio(dto.getLaboratorio());
+        if (dto.getCls() != null) producto.setCls(dto.getCls());
+        if (dto.getZona() != null) producto.setZona(dto.getZona());
+        if (dto.getPareto() != null) producto.setPareto(dto.getPareto());
+        if (dto.getPresentacion() != null) producto.setPresentacion(dto.getPresentacion());
+        if (dto.getProveedor1() != null) producto.setProveedor1(dto.getProveedor1());
+        if (dto.getProveedor2() != null) producto.setProveedor2(dto.getProveedor2());
+        if (dto.getProveedor3() != null) producto.setProveedor3(dto.getProveedor3());
+
+        producto.setFechaActualizacion(LocalDate.now());
+
+        productoRepository.save(producto);
+
+        return "Producto actualizado correctamente";
+    }
+
+	@Override
+	public String eliminarProducto(String codigo) {
+		Producto producto = productoRepository.findByCodigoBarrasAndHabilitadoTrue(codigo)
+        .orElseThrow(() -> new RuntimeException("El producto no existe"));
+		producto.setHabilitado(false);
+		producto.setFechaActualizacion(LocalDate.now());
+		
+		productoRepository.save(producto);
+		
+		return "Producto eliminado exitosamente";
+	}
+
+    /*
     @Override
     public Producto crearProducto(Producto producto) {
         producto.setActivo(true);
@@ -137,5 +231,5 @@ public class ProductoServiceImpl implements ProductoServiceInterface {
         }
 
         reader.close();
-    }
+    }*/
 }
