@@ -11,7 +11,7 @@ import com.sanjuan.pos.entity.Proveedor;
 public interface ProveedorRepository extends JpaRepository<Proveedor,Long> {
 	
 	Optional<Proveedor> findByRFC(String rfc);
-	@Query("SELECT SUM(p.importe) FROM Proveedor p")
+	@Query("SELECT COALESCE(SUM(p.importe), 0) FROM Proveedor p")
 	BigDecimal obtenerSumaImportes();
 
 }

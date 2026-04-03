@@ -1,7 +1,9 @@
 package com.sanjuan.pos.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -29,12 +31,17 @@ public class ColorController {
 		return colorServiceInterface.listarColores();
 	}
 	
+	@GetMapping("/edit/{id}")
+	public Optional<Color> consultarColor(@PathVariable Long id){
+		return colorServiceInterface.consultarColor(id);
+	}
+	
 	@PostMapping
 	public Color crearColor(@RequestBody Color color) {
 		return colorServiceInterface.crearColor(color);
 	}
 	
-	@PatchMapping("/{id}")
+	@PatchMapping("/edit/{id}")
 	public Color actualizarColor(@PathVariable  Long id, @RequestBody ColorDTO color) {
 		return colorServiceInterface.editarColor(id, color);
 	}
