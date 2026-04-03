@@ -7,5 +7,4 @@ import com.sanjuan.pos.entity.Color;
 
 public interface ColorRepository extends JpaRepository<Color, Long>{
 	
-	
 }

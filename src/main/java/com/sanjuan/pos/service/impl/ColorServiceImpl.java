@@ -43,4 +43,9 @@ public class ColorServiceImpl implements ColorServiceInterface{
 		colorRepository.deleteById(id);
 	}
 
+	@Override
+	public Optional<Color> consultarColor(Long id) {
+		return colorRepository.findById(id);
+	}
+
 }

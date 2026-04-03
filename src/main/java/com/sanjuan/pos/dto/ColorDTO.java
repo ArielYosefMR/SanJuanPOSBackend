@@ -10,9 +10,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class ColorDTO {
 	private String color;
 	private BigDecimal porcentaje;

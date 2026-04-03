@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,8 +34,10 @@ public class Proveedor {
     private String nombre;
 	
 	@Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal importe;
+	@Builder.Default
+    private BigDecimal importe = BigDecimal.valueOf(0);
 	
-	@Column(nullable = false, precision = 8, scale = 6)
-	private BigDecimal porcentaje;
+	@Column(nullable = false, precision = 5, scale = 2)
+	@Builder.Default
+	private BigDecimal porcentaje = BigDecimal.valueOf(0);
 }
